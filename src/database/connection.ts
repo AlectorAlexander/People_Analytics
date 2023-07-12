@@ -1,12 +1,10 @@
-
 import { Pool } from 'pg';
 
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+const URL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
+
 const pool = new Pool({
-    user: 'your_username',
-    host: 'localhost',
-    database: 'your_database',
-    password: 'your_password',
-    port: 5432,
+    connectionString: URL
 });
 
-module.exports = pool;
+export default pool;
