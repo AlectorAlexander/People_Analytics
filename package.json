@@ -1,0 +1,19 @@
+{
+  "name": "people-analytics",
+  "version": "1.0.0",
+  "description": "Projetinho pra ganhar emprego ou pra aprender alguma coisa. Mas provavelmente pra aprender alguma coisa.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlectorAlexander/People_Analytics.git"
+  },
+  "author": "Aléctor The Boss Alexander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlectorAlexander/People_Analytics/issues"
+  },
+  "homepage": "https://github.com/AlectorAlexander/People_Analytics#readme"
+}
