@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-var-requires */
-// sequelize.config.js
 import dotenv from 'dotenv';
 dotenv.config();
 

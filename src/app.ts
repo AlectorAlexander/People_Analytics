@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import postgres from 'postgres';
-import pool from './database/connection';
+import pool from './database/config/connection';
 import express from 'express';
 
 dotenv.config();
