@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import sequelize from './database/config/connection';
+const dotenv = require('dotenv');
+const express = require('express');
+const sequelize = require('./database/config/connection');
 dotenv.config();
 
 
@@ -18,7 +18,7 @@ sequelize
         process.exit(1);
     });
 
-app.get('/', (req, res) => {
+app.get('/', (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }) => {
     res.status(200).send('Hello World!');
 });
 

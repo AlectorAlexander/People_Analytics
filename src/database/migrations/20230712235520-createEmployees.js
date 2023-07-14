@@ -1,22 +1,74 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
-  },
+    up: async (queryInterface, Sequelize) => {
+        await queryInterface.createTable('employees', {
+            id: {
+                type: Sequelize.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+            enrollment: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            name: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            email: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            leaderEmail: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            title: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            hireDate: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            terminationDate: {
+                type: Sequelize.DATE,
+                allowNull: true,
+            },
+            status: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            updatedAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+        });
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+        // Create foreign key constraint
+        await queryInterface.addConstraint('employees', {
+            fields: ['leaderEmail'],
+            type: 'foreign key',
+            references: {
+                table: 'employees',
+                field: 'email',
+            },
+            onDelete: 'cascade',
+            onUpdate: 'cascade',
+        });
+    },
+
+    down: async (queryInterface, Sequelize) => {
+        // Remove foreign key constraint
+
+        await queryInterface.dropTable('employees');
+    },
 };

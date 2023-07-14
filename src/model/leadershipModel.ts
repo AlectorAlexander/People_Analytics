@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import Employees from './employeesModel';
+import sequelize from '../database/config/connection';
 
 class Leadership extends Model {
     public id!: number;
@@ -23,7 +24,7 @@ Leadership.init({
     }
 }, {
     tableName: 'leadership',
-    sequelize: require('../config/database'), 
+    sequelize, 
 });
 
 Employees.hasMany(Leadership, { foreignKey: 'leaderEmail', sourceKey: 'email' });

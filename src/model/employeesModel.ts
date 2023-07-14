@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import Leadership from './leadershipModel';
+import sequelize from '../database/config/connection';
 
 class Employees extends Model {
     public id!: number;
@@ -11,8 +12,6 @@ class Employees extends Model {
     public hireDate!: Date;
     public terminationDate?: Date;
     public status!: string;
-
-    // Define any associations or custom methods here
 
 }
 
@@ -39,7 +38,7 @@ Employees.init(
         },
         leaderEmail: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         title: {
             type: DataTypes.STRING,
@@ -60,7 +59,7 @@ Employees.init(
     },
     {
         tableName: 'employees',
-        sequelize: require('../config/database'), 
+        sequelize, 
     }
 );
 

@@ -9,7 +9,10 @@
     "start": "ts-node src/app.ts",
     "dev": "ts-node-dev src/app.ts",
     "create-migrations": "sequelize-cli migration:generate --name",
-    "migrate": "sequelize-cli db:migrate"
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:down": "npx sequelize-cli db:migrate:undo",
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed:down": "npx sequelize-cli db:seed:undo"
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,9 @@
   },
   "homepage": "https://github.com/AlectorAlexander/People_Analytics#readme",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.3.1",
+    "esm": "^3.2.25",
     "express": "^4.18.2",
     "pg": "^8.11.1",
     "postgres": "^3.3.5",
@@ -36,6 +41,7 @@
     "@types/sequelize": "^4.28.15",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "csv-parse": "^5.4.0",
     "eslint": "^8.44.0",
     "sequelize-cli": "^6.6.1",
     "ts-node": "^10.9.1",
