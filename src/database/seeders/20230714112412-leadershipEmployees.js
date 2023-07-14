@@ -15,15 +15,15 @@ module.exports = {
       fs.createReadStream('./FolhaDePagamento.csv')
         .pipe(csv())
         .on('data', (row) => {
-          // Check if 'email' is not empty.
           if(row['email'].trim() !== '') {
             employees.push({
+              leaderEmail: row['email do gestor']? row['email do gestor'] : null,
               enrollment: row['matrícula'],
               name: row['nome'],
               email: row['email'],
               title: row['cargo'],
               hireDate: reformatDate(row['data de admissão']),
-              terminationDate: row['data de recisão'] ? reformatDate(row['data de recisão']) : null,
+              terminationDate: row['data de rescisão'] ? reformatDate(row['data de rescisão']) : null,
               status: row['status'],
               createdAt: new Date(),
               updatedAt: new Date(),
