@@ -4,7 +4,7 @@ import sequelize from '../database/config/connection';
 class Leadership extends Model {
     public id!: number;
     public leaderEmail!: string;
-    public sobordinatesEmail!: string;
+    public sobordinateEmail!: string;
 }
 
 Leadership.init({
@@ -17,7 +17,7 @@ Leadership.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    sobordinatesEmail: {
+    sobordinateEmail: {
         type: DataTypes.STRING,
         allowNull: false,
     }

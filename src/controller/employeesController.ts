@@ -46,4 +46,25 @@ EmployeesController.post('/turnover', async (req, res) => {
     }
 });
 
+EmployeesController.post('/headcountForIndirects', async (req, res) => {
+    try {
+        const { startDate, endDate, leaderEmail  } = req.body;
+        const result = await EmployeesService.getHeadcountForPeriodForIndirectSubordinates(new Date(startDate as string), new Date(endDate), leaderEmail);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
+});
+
+// Route to get turnover for a period
+EmployeesController.post('/turnoverForIndirects', async (req, res) => {
+    try {
+        const { startDate, endDate, leaderEmail } = req.body;
+        const result = await EmployeesService.getTurnoverForPeriodForIndirectSubordinates(new Date(startDate as string), new Date(endDate as string), leaderEmail as string);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
+});
+
 export default EmployeesController;
