@@ -1,10 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
-import Employees from './employeesModel';
 import sequelize from '../database/config/connection';
 
 class Leadership extends Model {
     public id!: number;
-    public leadersEmail!: string;
+    public leaderEmail!: string;
     public sobordinatesEmail!: string;
 }
 
@@ -14,7 +13,7 @@ Leadership.init({
         autoIncrement: true,
         primaryKey: true,
     },
-    leadersEmail: {
+    leaderEmail: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -26,9 +25,6 @@ Leadership.init({
     tableName: 'leadership',
     sequelize, 
 });
-
-Employees.hasMany(Leadership, { foreignKey: 'leaderEmail', sourceKey: 'email' });
-Leadership.belongsTo(Employees, { foreignKey: 'leaderEmail', targetKey: 'email' });
 
 
 export default Leadership;

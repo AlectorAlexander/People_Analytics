@@ -1,5 +1,4 @@
 import { Model, DataTypes } from 'sequelize';
-import Leadership from './leadershipModel';
 import sequelize from '../database/config/connection';
 
 class Employees extends Model {
@@ -12,7 +11,6 @@ class Employees extends Model {
     public hireDate!: Date;
     public terminationDate?: Date;
     public status!: string;
-
 }
 
 Employees.init(
@@ -63,7 +61,5 @@ Employees.init(
     }
 );
 
-Employees.hasMany(Leadership, { foreignKey: 'leaderEmail', sourceKey: 'email' });
-Leadership.belongsTo(Employees, { foreignKey: 'leaderEmail', targetKey: 'email' });
 
 export default Employees;

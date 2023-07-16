@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+/* import { Op } from 'sequelize';
 import Leadership from '../model/leadershipModel';
 
 class LeadershipService {
@@ -35,3 +35,4 @@ class LeadershipService {
 }
 
 export default LeadershipService;
+ */
