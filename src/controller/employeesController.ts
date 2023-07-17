@@ -1,9 +1,11 @@
+// Importa o módulo 'express' e o serviço 'EmployeesService'
 import express from 'express';
 import EmployeesService from '../services/employeesService';
 
+// Cria o roteador do Express
 const EmployeesController = express.Router();
 
-// Route to get an employee by email
+// Rota para obter um funcionário pelo email
 EmployeesController.get('/employee/:email', async (req, res) => {
     try {
         const { email } = req.params;
@@ -14,7 +16,7 @@ EmployeesController.get('/employee/:email', async (req, res) => {
     }
 });
 
-// Route to get all employees
+// Rota para obter todos os funcionários
 EmployeesController.get('/employees', async (req, res) => {
     try {
         const employees = await EmployeesService.getAllEmployees();
@@ -24,10 +26,10 @@ EmployeesController.get('/employees', async (req, res) => {
     }
 });
 
-// Route to get headcount for a period
+// Rota para obter a contagem de funcionários ativos para um período
 EmployeesController.post('/headcount', async (req, res) => {
     try {
-        const { startDate, endDate, leaderEmail  } = req.body;
+        const { startDate, endDate, leaderEmail } = req.body;
         const result = await EmployeesService.getHeadcountForPeriod(new Date(startDate as string), new Date(endDate), leaderEmail);
         res.json(result);
     } catch (error) {
@@ -35,7 +37,7 @@ EmployeesController.post('/headcount', async (req, res) => {
     }
 });
 
-// Route to get turnover for a period
+// Rota para obter a taxa de rotatividade para um período
 EmployeesController.post('/turnover', async (req, res) => {
     try {
         const { startDate, endDate, leaderEmail } = req.body;
@@ -46,9 +48,10 @@ EmployeesController.post('/turnover', async (req, res) => {
     }
 });
 
+// Rota para obter a contagem de funcionários ativos (incluindo subordinados indiretos) para um período
 EmployeesController.post('/headcountForIndirects', async (req, res) => {
     try {
-        const { startDate, endDate, leaderEmail  } = req.body;
+        const { startDate, endDate, leaderEmail } = req.body;
         const result = await EmployeesService.getHeadcountForPeriodForIndirectSubordinates(new Date(startDate as string), new Date(endDate), leaderEmail);
         res.json(result);
     } catch (error) {
@@ -56,7 +59,7 @@ EmployeesController.post('/headcountForIndirects', async (req, res) => {
     }
 });
 
-// Route to get turnover for a period
+// Rota para obter a taxa de rotatividade (incluindo subordinados indiretos) para um período
 EmployeesController.post('/turnoverForIndirects', async (req, res) => {
     try {
         const { startDate, endDate, leaderEmail } = req.body;
@@ -67,4 +70,5 @@ EmployeesController.post('/turnoverForIndirects', async (req, res) => {
     }
 });
 
+// Exporta o roteador como padrão
 export default EmployeesController;

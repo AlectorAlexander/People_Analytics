@@ -128,13 +128,6 @@ class EmployeesService {
         }
     }
     
-    
-    
-    
-    
-
-    
-    
 
     // Calcular o turnover para um determinado período
     static async getTurnoverForPeriod(startDate: Date, endDate: Date, leaderEmail: string) {

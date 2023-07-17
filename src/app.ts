@@ -8,6 +8,7 @@ import './model/employeesModel';  // Import Employees model
 import './model/leadershipModel'; // Import Leadership model
 import './model/relationships'; // Import relationship definitions
 import EmployeesController from './controller/employeesController';
+import LeadershipController from './controller/leadershipController';
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use('/api/v1', EmployeesController);
+app.use('/api/v1', LeadershipController);
 
 sequelize
     .authenticate()
