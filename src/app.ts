@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import sequelize from './database/config/connection';
-import './model/employeesModel';  // Import Employees model
-import './model/leadershipModel'; // Import Leadership model
-import './model/relationships'; // Import relationship definitions
+import './model/employeesModel';  
+import './model/leadershipModel';
+import './model/relationships';
 import EmployeesController from './controller/employeesController';
 import LeadershipController from './controller/leadershipController';
 dotenv.config();

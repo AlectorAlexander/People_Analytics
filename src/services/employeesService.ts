@@ -22,7 +22,8 @@ class EmployeesService {
     // Obter um funcionário com base no email
     static async getEmployeeByEmail(email: string) {
         try {
-            return await Employees.findOne({ where: { email } });
+            const employee = await Employees.findOne({ where: { email } });
+            return employee;
         } catch (error) {
             console.error(error);
             throw error;

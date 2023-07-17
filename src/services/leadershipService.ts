@@ -9,7 +9,6 @@ class LeadershipService {
                 }
             });
 
-
             return subordinates;
         } catch (error) {
             throw new Error(`Error in getDirectSubordinates: ${error}`);
