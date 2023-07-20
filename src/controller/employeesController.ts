@@ -1,8 +1,6 @@
-// Importa o módulo 'express' e o serviço 'EmployeesService'
 import express from 'express';
 import EmployeesService from '../services/employeesService';
 
-// Cria o roteador do Express
 const EmployeesController = express.Router();
 
 // Rota para obter um funcionário pelo email

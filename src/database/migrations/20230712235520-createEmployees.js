@@ -53,7 +53,6 @@ module.exports = {
             },
         });
 
-        // Create foreign key constraint
         await queryInterface.addConstraint('employees', {
             fields: ['leaderEmail'],
             type: 'foreign key',
@@ -67,7 +66,6 @@ module.exports = {
     },
 
     down: async (queryInterface, Sequelize) => {
-        // Remove foreign key constraint
 
         await queryInterface.dropTable('employees');
     },
