@@ -55,7 +55,7 @@ EmployeesController.post('/turnover', async (req, res) => {
 EmployeesController.post('/headcountForIndirects', async (req, res) => {
     try {
         const { startDate, endDate, leaderEmail } = req.body;
-        const result = await EmployeesService.getHeadcountForPeriodForIndirectSubordinates(new Date(startDate as string), new Date(endDate), leaderEmail);
+        const result = await EmployeesService.getHeadcountForPeriodForAllSubordinates(new Date(startDate as string), new Date(endDate), leaderEmail);
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json({ error: (error as Error).message });

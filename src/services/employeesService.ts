@@ -15,7 +15,6 @@ interface Employee {
     status: string;
     createdAt: string;
     updatedAt: string;
-    directSubordinates?: {[key: string]: Employees};
 }
 
 class EmployeesService {
@@ -80,7 +79,9 @@ class EmployeesService {
     
             // Convertendo o mapa de volta para um array de funcionários únicos
             const uniqueEmployees = Array.from(uniqueEmployeesMap.values());
-    
+            // Após a junção das duas requisições, ordene o array uniqueEmployees com base na propriedade hireDate
+            uniqueEmployees.sort((a, b) => a.hireDate.getTime() - b.hireDate.getTime());
+
             // Cálculo da contagem de funcionários (média entre o início e o fim do mês)
             const headcount = (startOfMonthActiveEmployees.length + endOfMonthActiveEmployees.length) / 2;
             
@@ -92,7 +93,7 @@ class EmployeesService {
         }
     }
 
-    static async getHeadcountForPeriodForIndirectSubordinates(startDate: Date, endDate: Date, leaderEmail: string, allHeadcounts: number[] = []): Promise<{ employee: Employee, headcount: number }> {
+    /* static async getHeadcountForPeriodForIndirectSubordinates(startDate: Date, endDate: Date, leaderEmail: string, allHeadcounts: number[] = []): Promise<{ employee: Employee, headcount: number }> {
         try {
             const { activeEmployees, headcount } = await this.getHeadcountForPeriod(startDate, endDate, leaderEmail);
             allHeadcounts.push(headcount);
@@ -127,7 +128,47 @@ class EmployeesService {
             console.error(error);
             throw error;
         }
+    } */
+
+    static async getHeadcountForPeriodForAllSubordinates(startDate: Date, endDate: Date, leaderEmail: string): Promise<{ headcount: number, activeEmployees: Employee[] }> {
+        try {
+            const { activeEmployees, headcount } = await this.getHeadcountForPeriod(startDate, endDate, leaderEmail);
+            const leader = leaderEmail ? 
+                await Employees.findOne({ where: { email: leaderEmail } }) : 
+                await Employees.findOne({ where: { leaderEmail: null } });
+    
+            if (!leader) {
+                throw new Error('Leader not found');
+            }
+    
+            let allSubordinates: Employee[] = [];
+            let totalHeadcount = headcount;
+    
+            if (activeEmployees && activeEmployees.length > 0) {
+                for (const possibleSubordinate of activeEmployees) {
+                    if (possibleSubordinate.leaderEmail === leaderEmail) {
+                        allSubordinates.push(possibleSubordinate);
+                        const subordinates = await this.getHeadcountForPeriodForAllSubordinates(startDate, endDate, possibleSubordinate.email);
+                        allSubordinates = allSubordinates.concat(subordinates.activeEmployees);
+                        totalHeadcount += subordinates.headcount;
+                    }
+                }
+            }
+    
+            // Ordena todos os funcionários por hireDate
+            allSubordinates.sort((a, b) => new Date(a.hireDate).getTime() - new Date(b.hireDate).getTime());
+    
+            return { headcount: totalHeadcount, activeEmployees: allSubordinates };
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
+    
+    
+    
+    
+    
     
 
     // Calcular o turnover para um determinado período
@@ -160,7 +201,7 @@ class EmployeesService {
                 }
             });
     
-            const headcountData = await this.getHeadcountForPeriodForIndirectSubordinates(startDate, endDate, leaderEmail);
+            const headcountData = await this.getHeadcountForPeriodForAllSubordinates(startDate, endDate, leaderEmail);
             const activeEmployees = headcountData.headcount; // Número de funcionários ativos durante o período
     
             const turnover = employeesFired.length / activeEmployees; // Taxa de rotatividade (funcionários demitidos / funcionários ativos)
